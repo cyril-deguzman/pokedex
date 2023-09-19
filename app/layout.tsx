@@ -55,7 +55,7 @@ export default function RootLayout({
               >
                 <Snippet hideSymbol hideCopyButton variant="flat">
                   <span>
-                    Fueled by <Code color="primary">tantuwu</Code>
+                    Fueled by <Code color="secondary">tantuwu</Code>
                   </span>
                 </Snippet>
               </Link>
