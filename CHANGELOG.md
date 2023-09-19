@@ -5,5 +5,6 @@ Changelog Format
 NOTE: all lowercase and no ending punctuation marks
 -->
 
+- [CY] - [#2](https://github.com/cyril-deguzman/pokedex/issues/2) page(home): personalize
 - [CY] - [#1](https://github.com/cyril-deguzman/pokedex/issues/1) markdown(readme): update readme
 - [CY] - [#0](https://github.com/cyril-deguzman/pokedex/issues) initial commit
