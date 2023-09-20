@@ -5,6 +5,7 @@ Changelog Format
 NOTE: all lowercase and no ending punctuation marks
 -->
 
+- [CY] - [#7](https://github.com/cyril-deguzman/pokedex/issues/6) deployment(hotfix): ignore typescript errors for now
 - [CY] - [#6](https://github.com/cyril-deguzman/pokedex/issues/6) deployment(hotfix): ignore eslint for now
 - [CY] - [#5](https://github.com/cyril-deguzman/pokedex/issues/5) app(whole): modal search sort pagination
 - [CY] - [#4](https://github.com/cyril-deguzman/pokedex/issues/4) app(component): link fetched data to cards and create modal
