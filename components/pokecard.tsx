@@ -6,17 +6,16 @@ import { Card, CardHeader, CardBody, CardFooter } from "@nextui-org/card";
 
 export const Pokecard = ({
   pokeinfo,
-  pokeid,
   setPokemon,
   onOpen,
 }: {
   pokeinfo: any;
-  pokeid: number;
-  setPokemon: Function;
+  setPokemon: (data: any) => void;
   onOpen: () => void;
 }) => {
   const [data, setData] = useState<any>();
   const [isLoading, setLoading] = useState<boolean>(true);
+  const pokeid = pokeinfo.url.split("/").slice(-2)[0];
 
   useEffect(() => {
     fetch(`https://pokeapi.co/api/v2/pokemon/${pokeinfo.name}`)
@@ -25,17 +24,16 @@ export const Pokecard = ({
         setData(data);
         setLoading(false);
       });
-  }, []);
+  }, [pokeinfo]);
 
   return (
     <div className="justify-center">
       <Card
         isPressable
-        isBlurred
         isFooterBlurred
-        className="sm:w-[180px] sm:h-[260px] w-[240px] h-[320px]"
+        className="sm:w-[180px] sm:h-[260px] w-[240px] h-[320px] dark:bg-neutral-900"
         onPress={() => {
-          setPokemon(pokeinfo);
+          setPokemon(data);
           onOpen();
         }}
       >
@@ -43,10 +41,13 @@ export const Pokecard = ({
           <p className="text-tiny text-opacity-0">
             #{pokeid.toString().padStart(4, "0")}
           </p>
-          <h4 className="font-medium text-2xl capitalize">{pokeinfo.name}</h4>
+          <h4 className="font-medium text-xl truncate capitalize">
+            {pokeinfo.name}
+          </h4>
         </CardHeader>
         <CardBody className="overflow-visible py-2">
           <Image
+            isBlurred
             alt="Card background"
             className="object-cover rounded-xl"
             src={`https://assets.pokemon.com/assets/cms2/img/pokedex/full/${pokeid
@@ -55,11 +56,9 @@ export const Pokecard = ({
             width={270}
           />
         </CardBody>
-        <CardFooter className="gap-1 pt-0 pl-3">
+        <CardFooter className="gap-1 pl-3 pb-4 md:pb-3">
           {!isLoading
             ? data.types.map((types: any, idx: number) => {
-                const type = types.type.name;
-
                 return (
                   <Snippet
                     hideSymbol
