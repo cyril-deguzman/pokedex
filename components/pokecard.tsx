@@ -4,15 +4,13 @@ import { Button } from "@nextui-org/button";
 import { Snippet } from "@nextui-org/snippet";
 import { Card, CardHeader, CardBody, CardFooter } from "@nextui-org/card";
 
-export const Pokecard = ({
-  pokeinfo,
-  setPokemon,
-  onOpen,
-}: {
+export interface PokeCardProps {
   pokeinfo: any;
   setPokemon: (data: any) => void;
   onOpen: () => void;
-}) => {
+}
+
+export const Pokecard = ({ pokeinfo, setPokemon, onOpen }: PokeCardProps) => {
   const [data, setData] = useState<any>();
   const [isLoading, setLoading] = useState<boolean>(true);
   const pokeid = pokeinfo.url.split("/").slice(-2)[0];
@@ -61,6 +59,7 @@ export const Pokecard = ({
             ? data.types.map((types: any, idx: number) => {
                 return (
                   <Snippet
+                    key={idx}
                     hideSymbol
                     hideCopyButton
                     variant="shadow"

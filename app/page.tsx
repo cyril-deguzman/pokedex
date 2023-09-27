@@ -69,31 +69,19 @@ export default function Home() {
       </div>
       <div className="flex flex-wrap gap-8 items-center justify-center">
         {!isLoading && filteredData ? (
-          sortOption == "name" ? (
-            filteredData
-              .sort(sortByName)
-              .slice(0, endIndex)
-              .map((pokeinfo: any, idx: number) => (
+          filteredData
+            .sort(sortOption == "name" ? sortByName : sortByID)
+            .slice(0, endIndex)
+            .map((pokeinfo: any, idx: number) => {
+              return (
                 <Pokecard
-                  key={idx}
+                  key={idx.toString()}
                   pokeinfo={pokeinfo}
                   setPokemon={setPokemon}
                   onOpen={onOpen}
                 ></Pokecard>
-              ))
-          ) : (
-            filteredData
-              .sort(sortByID)
-              .slice(0, endIndex)
-              .map((pokeinfo: any, idx: number) => (
-                <Pokecard
-                  key={idx}
-                  pokeinfo={pokeinfo}
-                  setPokemon={setPokemon}
-                  onOpen={onOpen}
-                ></Pokecard>
-              ))
-          )
+              );
+            })
         ) : (
           <div className="flex flex-col pt-[15vh] justify-center">
             <div className="flex flex-col justify-center items-center pb-5">

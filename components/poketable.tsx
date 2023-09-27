@@ -7,6 +7,7 @@ import {
   TableRow,
   TableCell,
 } from "@nextui-org/table";
+
 export const PokeTable = ({
   className,
   info,
@@ -14,7 +15,7 @@ export const PokeTable = ({
   className: string;
   info: any;
 }) => {
-  const colClassName = "py-0";
+  const colClassName: string = "py-0";
 
   return (
     <Table className={className} aria-label="Poke Stat Table">
@@ -23,17 +24,17 @@ export const PokeTable = ({
         <TableColumn>VALUE</TableColumn>
       </TableHeader>
       <TableBody>
-        <TableRow>
+        <TableRow key={0}>
           <TableCell className={colClassName}>height</TableCell>
           <TableCell className={colClassName}>{info.height}</TableCell>
         </TableRow>
-        <TableRow>
+        <TableRow key={1}>
           <TableCell className={colClassName}>weight</TableCell>
           <TableCell className={colClassName}>{info.weight}</TableCell>
         </TableRow>
         {info.stats.map((statsidx: any, idx: number) => {
           return (
-            <TableRow>
+            <TableRow key={idx + 2}>
               <TableCell className={colClassName}>
                 {statsidx.stat.name}
               </TableCell>
@@ -43,7 +44,7 @@ export const PokeTable = ({
             </TableRow>
           );
         })}
-        <TableRow>
+        <TableRow key={8}>
           <TableCell className={colClassName}>type</TableCell>
           <TableCell className={colClassName}>
             {info.types.map((typeidx: any, idx: number) => {
