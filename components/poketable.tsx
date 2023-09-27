@@ -7,15 +7,27 @@ import {
   TableRow,
   TableCell,
 } from "@nextui-org/table";
+import { Pokemon, Stat, Type } from "./pokecard";
 
 export const PokeTable = ({
   className,
   info,
 }: {
   className: string;
-  info: any;
+  info: Pokemon;
 }) => {
   const colClassName: string = "py-0";
+
+  const getInfo: Function = (): JSX.Element[] => {
+    return info.stats.map((statsidx: Stat, idx: number) => {
+      return (
+        <TableRow key={idx + 2}>
+          <TableCell className={colClassName}>{statsidx.stat.name}</TableCell>
+          <TableCell className={colClassName}>{statsidx.base_stat}</TableCell>
+        </TableRow>
+      );
+    });
+  };
 
   return (
     <Table className={className} aria-label="Poke Stat Table">
@@ -32,22 +44,11 @@ export const PokeTable = ({
           <TableCell className={colClassName}>weight</TableCell>
           <TableCell className={colClassName}>{info.weight}</TableCell>
         </TableRow>
-        {info.stats.map((statsidx: any, idx: number) => {
-          return (
-            <TableRow key={idx + 2}>
-              <TableCell className={colClassName}>
-                {statsidx.stat.name}
-              </TableCell>
-              <TableCell className={colClassName}>
-                {statsidx.base_stat}
-              </TableCell>
-            </TableRow>
-          );
-        })}
+        {getInfo()}
         <TableRow key={8}>
           <TableCell className={colClassName}>type</TableCell>
           <TableCell className={colClassName}>
-            {info.types.map((typeidx: any, idx: number) => {
+            {info.types.map((typeidx: Type, idx: number) => {
               return `${typeidx.type.name} `;
             })}
           </TableCell>

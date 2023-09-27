@@ -1,6 +1,6 @@
 "use client";
 
-import { Pokecard } from "@/components/pokecard";
+import { MetaData, Pokecard, Pokemon } from "@/components/pokecard";
 import { PokeDetailsModal } from "@/components/pokedetailsmodal";
 import { useEffect, useState } from "react";
 import { useDisclosure } from "@nextui-org/modal";
@@ -10,26 +10,26 @@ import { Spinner } from "@nextui-org/spinner";
 import { Radio, RadioGroup } from "@nextui-org/radio";
 
 export default function Home() {
-  const [data, setData] = useState<any>();
+  const [data, setData] = useState<MetaData[]>();
   const [endIndex, setEndIndex] = useState(10);
   const [sortOption, setOption] = useState("id");
   const [isLoading, setLoading] = useState<boolean>(true);
-  const [selectedPokemon, setPokemon] = useState<any>();
-  const [filteredData, setFilteredData] = useState<any>();
+  const [selectedPokemon, setPokemon] = useState<Pokemon>();
+  const [filteredData, setFilteredData] = useState<MetaData[]>();
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   const onSearch = (searchQuery: string) => {
-    const filteredPokemons = data.filter((pokemon: any) =>
+    const filteredPokemons = data?.filter((pokemon: MetaData) =>
       pokemon.name.toLocaleLowerCase().includes(searchQuery)
     );
 
     setFilteredData(filteredPokemons);
   };
 
-  const sortByName = (a: any, b: any) =>
+  const sortByName = (a: MetaData, b: MetaData) =>
     a.name.toLowerCase().localeCompare(b.name.toLowerCase());
 
-  const sortByID = (a: any, b: any) => {
+  const sortByID = (a: MetaData, b: MetaData) => {
     const idA = Number(a.url.split("/").slice(-2)[0]);
     const idB = Number(b.url.split("/").slice(-2)[0]);
 
@@ -72,10 +72,10 @@ export default function Home() {
           filteredData
             .sort(sortOption == "name" ? sortByName : sortByID)
             .slice(0, endIndex)
-            .map((pokeinfo: any, idx: number) => {
+            .map((pokeinfo: MetaData, idx: number) => {
               return (
                 <Pokecard
-                  key={idx.toString()}
+                  key={idx}
                   pokeinfo={pokeinfo}
                   setPokemon={setPokemon}
                   onOpen={onOpen}
@@ -92,7 +92,7 @@ export default function Home() {
         )}
       </div>
 
-      {!isLoading && filteredData.length ? (
+      {!isLoading && filteredData?.length ? (
         <div className="flex flex-col items-center justify-center pt-5">
           <Button
             className="self-center"
@@ -105,14 +105,16 @@ export default function Home() {
         ""
       )}
 
-      <PokeDetailsModal
-        isOpen={isOpen}
-        onOpen={onOpen}
-        onOpenChange={onOpenChange}
-        setPokemon={setPokemon}
-        selectedPokemon={selectedPokemon}
-        filteredData={filteredData}
-      />
+      {filteredData && selectedPokemon ? (
+        <PokeDetailsModal
+          isOpen={isOpen}
+          onOpen={onOpen}
+          onOpenChange={onOpenChange}
+          setPokemon={setPokemon}
+          selectedPokemon={selectedPokemon}
+          filteredData={filteredData}
+        />
+      ) : null}
     </section>
   );
 }
