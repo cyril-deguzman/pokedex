@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Dispatch, SetStateAction } from "react";
 import { Button } from "@nextui-org/button";
 import { Image } from "@nextui-org/image";
 import {
@@ -9,6 +9,7 @@ import {
   ModalFooter,
 } from "@nextui-org/modal";
 import { PokeTable } from "./poketable";
+import { MetaData, Pokemon } from "./pokecard";
 
 export const PokeDetailsModal = ({
   isOpen,
@@ -19,16 +20,16 @@ export const PokeDetailsModal = ({
   filteredData,
 }: {
   isOpen: boolean;
-  onOpen: any;
-  setPokemon: (data: any) => void;
+  onOpen: () => void;
+  setPokemon: Dispatch<SetStateAction<Pokemon | undefined>>;
   onOpenChange: (isOpen: boolean) => void;
-  selectedPokemon: any;
-  filteredData: any;
+  selectedPokemon: Pokemon;
+  filteredData: MetaData[];
 }) => {
   const onNextPokemon = (isNext: boolean) => {
     const currIdx = filteredData
-      .map((pokeinfo: any) => pokeinfo.name)
-      .indexOf(selectedPokemon.name);
+      .map((pokeinfo: MetaData) => pokeinfo.name)
+      .indexOf(selectedPokemon!.name);
 
     const nextIdx = isNext ? currIdx + 1 : currIdx - 1;
 

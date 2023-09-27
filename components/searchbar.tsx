@@ -8,7 +8,7 @@ export const SearchBar = ({
 }: {
   onSearch: (searchQuery: string) => void;
 }) => {
-  const [searchQuery, setSearchQuery] = useState<string>("");
+  const [searchQuery, setSearchQuery] = useState("");
 
   return (
     <Input

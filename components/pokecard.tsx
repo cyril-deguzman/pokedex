@@ -1,17 +1,44 @@
 import { useEffect, useState } from "react";
 import { Image } from "@nextui-org/image";
-import { Button } from "@nextui-org/button";
 import { Snippet } from "@nextui-org/snippet";
 import { Card, CardHeader, CardBody, CardFooter } from "@nextui-org/card";
 
-export interface PokeCardProps {
-  pokeinfo: any;
-  setPokemon: (data: any) => void;
-  onOpen: () => void;
+export interface MetaData {
+  name: string;
+  url: string;
 }
 
-export const Pokecard = ({ pokeinfo, setPokemon, onOpen }: PokeCardProps) => {
-  const [data, setData] = useState<any>();
+export interface Type {
+  slot: number;
+  type: MetaData;
+}
+
+export interface Stat {
+  base_stat: number;
+  effort: 1;
+  stat: MetaData;
+}
+
+export interface Pokemon {
+  id: number;
+  name: string;
+  height: number;
+  weight: number;
+  species: MetaData;
+  stats: Stat[];
+  types: Type[];
+}
+
+export const Pokecard = ({
+  pokeinfo,
+  setPokemon,
+  onOpen,
+}: {
+  pokeinfo: MetaData;
+  setPokemon: (data: Pokemon | undefined) => void;
+  onOpen: () => void;
+}) => {
+  const [data, setData] = useState<Pokemon>();
   const [isLoading, setLoading] = useState<boolean>(true);
   const pokeid = pokeinfo.url.split("/").slice(-2)[0];
 
@@ -55,8 +82,8 @@ export const Pokecard = ({ pokeinfo, setPokemon, onOpen }: PokeCardProps) => {
           />
         </CardBody>
         <CardFooter className="gap-1 pl-3 pb-4 md:pb-3">
-          {!isLoading
-            ? data.types.map((types: any, idx: number) => {
+          {!isLoading && data
+            ? data.types.map((types: Type, idx: number) => {
                 return (
                   <Snippet
                     key={idx}
@@ -72,7 +99,7 @@ export const Pokecard = ({ pokeinfo, setPokemon, onOpen }: PokeCardProps) => {
                   </Snippet>
                 );
               })
-            : ""}
+            : null}
         </CardFooter>
       </Card>
     </div>
