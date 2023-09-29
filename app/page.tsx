@@ -8,14 +8,18 @@ import { Button } from "@nextui-org/button";
 import { SearchBar } from "@/components/searchbar";
 import { Spinner } from "@nextui-org/spinner";
 import { Radio, RadioGroup } from "@nextui-org/radio";
+import { Pagination } from "@nextui-org/pagination";
 
 export default function Home() {
   const [data, setData] = useState<MetaData[]>();
-  const [endIndex, setEndIndex] = useState(10);
+  const [filteredData, setFilteredData] = useState<MetaData[]>();
+  const displayCount = 10;
+  const [startIndex, setStartIndex] = useState(0);
+  const [endIndex, setEndIndex] = useState(displayCount);
   const [sortOption, setOption] = useState("id");
   const [isLoading, setLoading] = useState<boolean>(true);
   const [selectedPokemon, setPokemon] = useState<Pokemon>();
-  const [filteredData, setFilteredData] = useState<MetaData[]>();
+
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   const onSearch = (searchQuery: string) => {
@@ -39,7 +43,7 @@ export default function Home() {
   useEffect(() => {
     fetch("https://pokeapi.co/api/v2/pokemon/?limit=1010&offset=0")
       .then((res) => res.json())
-      .then((data) => {
+      .then((data: { results: MetaData[] }) => {
         setData(data.results);
         setFilteredData(data.results);
         setLoading(false);
@@ -47,13 +51,13 @@ export default function Home() {
   }, []);
 
   return (
-    <section className="md:pb-10 px-[5.6rem] md:px-[4.5rem] md:pt-0">
-      <div className="flex flex-wrap justify-center gap-y-3 md:justify-between pb-5 items-center">
-        <div className="md:pl-2 lg:pl-4 xl:pl-6 sm:pr-3">
+    <section className="md:pb-10 md:pt-0 w-[86%] justify-center mx-auto">
+      <div className="flex flex-wrap justify-center gap-y-3 md:justify-between mx-auto pb-5 items-center">
+        <div className="">
           <SearchBar onSearch={onSearch} />
         </div>
-        <div className="flex flex-row items-center md:pr-5 xl:pr-7">
-          <p className="pr-2 pb-1">🗃️</p>
+        <div className="flex flex-row items-center">
+          <p className="pr-2 pb-1 pl-2 md:pl-0">🗃️</p>
           <RadioGroup
             value={sortOption}
             onValueChange={(value) => {
@@ -67,11 +71,12 @@ export default function Home() {
           </RadioGroup>
         </div>
       </div>
+
       <div className="flex flex-wrap gap-8 items-center justify-center">
         {!isLoading && filteredData ? (
           filteredData
             .sort(sortOption == "name" ? sortByName : sortByID)
-            .slice(0, endIndex)
+            .slice(startIndex, endIndex)
             .map((pokeinfo: MetaData, idx: number) => {
               return (
                 <Pokecard
@@ -93,17 +98,30 @@ export default function Home() {
       </div>
 
       {!isLoading && filteredData?.length ? (
-        <div className="flex flex-col items-center justify-center pt-5">
-          <Button
-            className="self-center"
-            onPress={() => setEndIndex((endIndex) => endIndex + 10)}
-          >
-            Load More
-          </Button>
-        </div>
-      ) : (
-        ""
-      )}
+        <>
+          <div className="flex flex-col items-center justify-center pt-5 md:hidden">
+            <Button
+              className="self-center"
+              onPress={() => setEndIndex((endIndex) => endIndex + 10)}
+            >
+              Load More
+            </Button>
+          </div>
+          <div className="hidden flex-col items-center justify-center pt-8 md:flex">
+            <Pagination
+              showControls
+              size="lg"
+              color="secondary"
+              total={Math.ceil(filteredData.length / displayCount)}
+              initialPage={1}
+              onChange={(currPage) => {
+                setStartIndex((currPage - 1) * displayCount);
+                setEndIndex((currPage - 1) * displayCount + displayCount);
+              }}
+            />
+          </div>
+        </>
+      ) : null}
 
       {filteredData && selectedPokemon ? (
         <PokeDetailsModal
