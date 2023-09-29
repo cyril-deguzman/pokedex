@@ -431,6 +431,22 @@
     "@react-stately/utils" "^3.7.0"
     react-remove-scroll "^2.5.6"
 
+"@nextui-org/pagination@^2.0.22":
+  version "2.0.22"
+  resolved "https://registry.yarnpkg.com/@nextui-org/pagination/-/pagination-2.0.22.tgz#3bcd0a78962c5c8c5fc703cbb0fa6c0e145f3c63"
+  integrity sha512-kQTAhWSOJZIuzr15jWTpX+DFFCAQx8/hGRIzbjHBrmQMrGsCuLtpaMyawddjC22ZWAyCK7N+Q4CvoUZYWjZnPQ==
+  dependencies:
+    "@nextui-org/react-utils" "2.0.9"
+    "@nextui-org/shared-icons" "2.0.4"
+    "@nextui-org/shared-utils" "2.0.3"
+    "@nextui-org/system" "2.0.10"
+    "@nextui-org/theme" "2.1.9"
+    "@nextui-org/use-pagination" "2.0.3"
+    "@react-aria/focus" "^3.14.1"
+    "@react-aria/interactions" "^3.18.0"
+    "@react-aria/utils" "^3.20.0"
+    scroll-into-view-if-needed "3.0.10"
+
 "@nextui-org/radio@^2.0.22":
   version "2.0.22"
   resolved "https://registry.yarnpkg.com/@nextui-org/radio/-/radio-2.0.22.tgz#991adbfd87594081a25c63cbf36a3de414c0dea6"
@@ -782,6 +798,13 @@
   integrity sha512-IukzfYn7Q1z872bg7lX/Wl2y6hGGPpiSu6tdU4bzQ6Q1WoNoVzc66K4WYVWsxLtWHcGf1iuwa2QrBXFkbe82ZA==
   dependencies:
     "@nextui-org/use-safe-layout-effect" "2.0.3"
+
+"@nextui-org/use-pagination@2.0.3":
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/@nextui-org/use-pagination/-/use-pagination-2.0.3.tgz#71d4ea7b387fd41b205ed5a2c8697eeb7e4082d0"
+  integrity sha512-FEL//pNtAEjoVE7nCRWmn8kTbgmifMU0xFcAalHA3KRnzeLMqsXa/5y5a+QU4Wa1K7ZCLRby5fp5Cy2fsJtXRg==
+  dependencies:
+    "@nextui-org/shared-utils" "2.0.3"
 
 "@nextui-org/use-safe-layout-effect@2.0.3":
   version "2.0.3"
@@ -1799,6 +1822,11 @@ commander@^4.0.0:
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/commander/-/commander-4.1.1.tgz#9fd602bd936294e9e9ef46a3f4d6964044b18068"
   integrity sha512-NOKm8xhkzAjzFx8B2v5OAHT+u5pRQc2UCa2Vq9jYL/31o2wi9mxBA7LIFs3sV5VSC49z6pEhfbMULvShKj26WA==
+
+compute-scroll-into-view@^3.0.2:
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/compute-scroll-into-view/-/compute-scroll-into-view-3.0.3.tgz#c418900a5c56e2b04b885b54995df164535962b1"
+  integrity sha512-nadqwNxghAGTamwIqQSG433W6OADZx2vCo3UXHNrzTRHK/htu+7+L0zhjEoaeaQVNAi3YgqWDv8+tzf0hRfR+A==
 
 concat-map@0.0.1:
   version "0.0.1"
@@ -3449,6 +3477,13 @@ scheduler@^0.23.0:
   integrity sha512-CtuThmgHNg7zIZWAXi3AsyIzA3n4xx7aNyjwC2VJldO2LMVDhFK+63xGqq6CsJH4rTAt6/M+N4GhZiDYPx9eUw==
   dependencies:
     loose-envify "^1.1.0"
+
+scroll-into-view-if-needed@3.0.10:
+  version "3.0.10"
+  resolved "https://registry.yarnpkg.com/scroll-into-view-if-needed/-/scroll-into-view-if-needed-3.0.10.tgz#38fbfe770d490baff0fb2ba34ae3539f6ec44e13"
+  integrity sha512-t44QCeDKAPf1mtQH3fYpWz8IM/DyvHLjs8wUvvwMYxk5moOqCzrMSxK6HQVD0QVmVjXFavoFIPRVrMuJPKAvtg==
+  dependencies:
+    compute-scroll-into-view "^3.0.2"
 
 semver@^6.3.0, semver@^6.3.1:
   version "6.3.1"
